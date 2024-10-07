@@ -22,6 +22,11 @@ public class BookingConfirmation extends HttpServlet {
 
 		int eventId = Integer.parseInt(req.getParameter("eventId"));
 		int seats = Integer.parseInt(req.getParameter("seats"));
+		
+		int uid = Integer.parseInt(req.getParameter("uid"));
+		
+		System.out.println("hello");
+		System.out.println(uid);
 
 		String sportsName = req.getParameter("sportsName");
 		String stadiumName = req.getParameter("stadiumName");
@@ -30,7 +35,7 @@ public class BookingConfirmation extends HttpServlet {
 
 		HttpSession session = req.getSession();
 
-		Booking b = new Booking(seats, sportsName, stadiumName, matchName, date);
+		Booking b = new Booking(seats, sportsName, stadiumName, matchName, date , uid);
 		TicketDao dao1 = new TicketDao(DBconnection.getConnection());
 
 		EventDao dao = new EventDao(DBconnection.getConnection());

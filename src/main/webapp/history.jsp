@@ -78,8 +78,12 @@
 
     <div class="card-container">
         <%
+        Integer uid = (Integer)session.getAttribute("userId");
+        
         TicketDao dao = new TicketDao(DBconnection.getConnection());
-        List<Booking> list = dao.getAllTickets();
+        
+        
+        List<Booking> list = dao.getAllTicketsById(uid);
         for (Booking b : list) {
         %>
         <div class="card paint-card">

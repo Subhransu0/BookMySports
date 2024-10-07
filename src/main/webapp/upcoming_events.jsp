@@ -1,3 +1,5 @@
+<%@page import="com.sonu.entity.User"%>
+<%@page import="com.sonu.dao.UserDao"%>
 <%@page import="com.sonu.dao.StadiumDao"%>
 <%@page import="com.sonu.entity.Stadium"%>
 <%@page import="com.sonu.entity.Event"%>
@@ -52,15 +54,17 @@
 				EVENTS</strong>
 		</p>
 		<c:if test="${not empty bookingConfirm }">
-			<div class="alert alert-success" role="alert"><i class="fa-regular fa-circle-check"></i> ${bookingConfirm }</div>
+			<div class="alert alert-success" role="alert">
+				<i class="fa-regular fa-circle-check"></i> ${bookingConfirm }
+			</div>
 			<c:remove var="bookingConfirm" scope="session" />
 		</c:if>
-		
+
 		<c:if test="${not empty error }">
-			<div class="alert alert-danger" role="alert"> ${error }</div>
+			<div class="alert alert-danger" role="alert">${error }</div>
 			<c:remove var="error" scope="session" />
 		</c:if>
-		
+
 		<div class="row">
 			<%
 			StadiumDao dao1 = new StadiumDao(DBconnection.getConnection());
@@ -132,14 +136,31 @@
 												<label for="seats" class="form-label">Number of
 													Tickets:</label> <input type="number" class="form-control"
 													id="seats" name="seats" min="1" max="<%=e.getMax_seat()%>"
-													required> 
-													<input type="hidden" name="eventId"
-													value="<%=e.getEvent_id()%>">
-													<input type="hidden" name="sportsName" value="<%=e.getSports_name() %>">
-													<input type="hidden" name="stadiumName" value="<%=st.getStadium_name()%>">
-													<input type="hidden" name="matchName" value="<%=e.getMatch_name()%>">
-													<input type="hidden" name="date" value="<%=e.getDate()%>">
-													</div>
+													required> <input type="hidden" name="eventId"
+													value="<%=e.getEvent_id()%>"> <input type="hidden"
+													name="sportsName" value="<%=e.getSports_name()%>">
+												<input type="hidden" name="stadiumName"
+													value="<%=st.getStadium_name()%>"> <input
+													type="hidden" name="matchName"
+													value="<%=e.getMatch_name()%>"> <input
+													type="hidden" name="date" value="<%=e.getDate()%>">
+
+												 <%
+                                                Integer uid = (Integer) session.getAttribute("userId");
+                                                if (uid != null) {
+                                                %>
+                                                <input type="hidden" name="uid" value="<%=uid%>">
+                                                <%
+                                                } else {
+                                                    response.sendRedirect("user_login.jsp");
+                                                }
+                                                %>
+
+
+
+
+												
+											</div>
 											<button type="submit" class="btn btn-primary">Confirm
 												Booking</button>
 										</form>

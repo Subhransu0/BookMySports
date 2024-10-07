@@ -99,15 +99,15 @@ public class UserDao {
 
 		return f;
 	}
-	
-	public List<User> getAllUser(){
+
+	public List<User> getAllUser() {
 		List<User> list = new ArrayList<>();
 		User u = null;
 		try {
-			String sql="select * from user";
+			String sql = "select * from user";
 			PreparedStatement ps = con.prepareStatement(sql);
 			ResultSet rs = ps.executeQuery();
-			while(rs.next()) {
+			while (rs.next()) {
 				u = new User();
 				u.setId(rs.getInt(1));
 				u.setFullname(rs.getString(2));
@@ -115,14 +115,34 @@ public class UserDao {
 				u.setPassword(rs.getString(4));
 				list.add(u);
 			}
-			
-			
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
-		
-		
+
 		return list;
+	}
+
+	public User getElementByid(int id) {
+		User u = null;
+		try {
+			String sql = "select * from user where id=?";
+			PreparedStatement ps = con.prepareStatement(sql);
+			ps.setInt(1, id);
+			ResultSet rs = ps.executeQuery();
+			while (rs.next()) {
+				u = new User();
+				u.setId(rs.getInt(1));
+				u.setFullname(rs.getString(2));
+				u.setEmail(rs.getString(3));
+				u.setPassword(rs.getString(4));
+
+			}
+
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+		return u;
 	}
 }

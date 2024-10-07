@@ -8,6 +8,28 @@ public class Booking {
 	private String stadiumName;
 	private String matchName;
 	private String date;
+	private int userId;
+	
+
+	public Booking( int seats, String sportsName, String stadiumName, String matchName, String date,
+			int userId) {
+		super();
+	
+		this.seats = seats;
+		this.sportsName = sportsName;
+		this.stadiumName = stadiumName;
+		this.matchName = matchName;
+		this.date = date;
+		this.userId = userId;
+	}
+
+	public int getUserId() {
+		return userId;
+	}
+
+	public void setUserId(int userId) {
+		this.userId = userId;
+	}
 
 	public Booking(int seats, String sportsName, String stadiumName, String matchName, String date) {
 		super();
